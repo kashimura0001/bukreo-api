@@ -16,10 +16,6 @@ export class UsersService {
     return 'This action adds a new user';
   }
 
-  findAll() {
-    return this.userRepository.find();
-  }
-
   findOne(id: string) {
     return this.userRepository.findOne(id);
   }
