@@ -75,12 +75,14 @@ input UpdateTeamInput {
 }
 
 input CreateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  firebaseUid: String!
+  name: String!
+  email: String!
+  avatarUrl: String
 }
 
 input UpdateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: String!
+  name: String!
+  email: String!
+  avatarUrl: String
 }
