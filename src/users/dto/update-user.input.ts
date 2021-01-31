@@ -1,7 +1,13 @@
-import { CreateUserInput } from './create-user.input';
-import { InputType, OmitType } from '@nestjs/graphql';
+import { Field, InputType } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateUserInput extends OmitType(CreateUserInput, [
-  'firebaseUid',
-] as const) {}
+export class UpdateUserInput {
+  @Field({ nullable: true })
+  name?: string;
+
+  @Field({ nullable: true })
+  email?: string;
+
+  @Field({ nullable: true })
+  avatarUrl?: string;
+}
