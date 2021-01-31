@@ -1,0 +1,87 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type User {
+  id: ID!
+  members: [Member!]!
+  name: String!
+  email: String!
+  avatarUrl: String!
+}
+
+type Invite {
+  id: ID!
+  code: String!
+  email: String!
+  status: InviteStatus!
+  inviteAt: DateTime!
+}
+
+enum InviteStatus {
+  Sent
+  Rejected
+  Accepted
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Member {
+  id: ID!
+  team: Team!
+  user: User
+  role: UserRole
+  invite: Invite
+}
+
+enum UserRole {
+  Admin
+  Member
+}
+
+type Team {
+  id: ID!
+  members: [Member!]!
+  name: String!
+}
+
+type Query {
+  teams: [Team!]!
+  team(id: Int!): Team!
+  users: [User!]!
+  user(id: String!): User!
+}
+
+type Mutation {
+  createTeam(createTeamInput: CreateTeamInput!): Team!
+  updateTeam(updateTeamInput: UpdateTeamInput!): Team!
+  removeTeam(id: Int!): Team!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: String!): User!
+}
+
+input CreateTeamInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateTeamInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateUserInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: String!
+}
