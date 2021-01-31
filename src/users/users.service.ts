@@ -12,19 +12,20 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
-  create(createUserInput: CreateUserInput) {
-    return 'This action adds a new user';
-  }
-
-  findOne(id: string) {
+  async findOne(id: string) {
     return this.userRepository.findOne(id);
   }
 
-  update(id: string, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  async create(payload: CreateUserInput) {
+    return this.userRepository.save({ ...payload });
+  }
+
+  async update(id: string, payload: UpdateUserInput) {
+    return this.userRepository.update(id, { ...payload });
   }
 
   async remove(id: string) {
     await this.userRepository.delete(id);
+    return this.findOne(id);
   }
 }

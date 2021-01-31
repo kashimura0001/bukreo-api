@@ -8,23 +8,24 @@ import { UpdateUserInput } from './dto/update-user.input';
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
-  @Mutation(() => User)
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.usersService.create(createUserInput);
-  }
-
-  @Query(() => User, { name: 'user' })
-  findOne(@Args('id') id: string) {
-    return this.usersService.findOne(id);
+  @Query(() => User, { nullable: true })
+  async user(@Args('id') id: string) {
+    return await this.usersService.findOne(id);
   }
 
   @Mutation(() => User)
-  updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    return this.usersService.update("", updateUserInput);
+  async createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
+    return await this.usersService.create(createUserInput);
   }
 
   @Mutation(() => User)
-  removeUser(@Args('id') id: string) {
-    return this.usersService.remove(id);
+  async updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
+    // TODO: ヘッダーのfirebase uidからcurrentUserを取得する処理いれる
+    return await this.usersService.update('', updateUserInput);
+  }
+
+  @Mutation(() => User, { nullable: true })
+  async removeUser(@Args('id') id: string) {
+    return await this.usersService.remove(id);
   }
 }
