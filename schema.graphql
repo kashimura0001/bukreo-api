@@ -51,7 +51,6 @@ type Team {
 type Query {
   teams: [Team!]!
   team(id: Int!): Team!
-  users: [User!]!
   user(id: String!): User!
 }
 
