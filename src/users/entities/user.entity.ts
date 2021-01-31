@@ -9,9 +9,9 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field(() => [Member])
+  @Field(() => [Member], { nullable: 'items' })
   @OneToMany(() => Member, (member) => member.user)
-  members: Member[];
+  members?: Member[];
 
   @HideField()
   @Column({ length: 255, unique: true })
@@ -25,7 +25,7 @@ export class User {
   @Column({ length: 255, unique: true })
   email: string;
 
-  @Field()
+  @Field({ nullable: true })
   @Column({ type: 'text', nullable: true })
   avatarUrl?: string;
 }
