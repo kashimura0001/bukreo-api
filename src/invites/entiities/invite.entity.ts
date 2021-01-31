@@ -1,10 +1,4 @@
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  Generated,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, Generated, PrimaryGeneratedColumn } from 'typeorm';
 import {
   Field,
   GraphQLISODateTime,
@@ -22,8 +16,8 @@ export enum InviteStatus {
 registerEnumType(InviteStatus, { name: 'InviteStatus' });
 
 @ObjectType()
-@Entity("invites")
-export class Invite extends BaseEntity {
+@Entity('invites')
+export class Invite {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;

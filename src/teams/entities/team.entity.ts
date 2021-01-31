@@ -1,6 +1,5 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import {
-  BaseEntity,
   Column,
   Entity,
   OneToMany,
@@ -9,8 +8,8 @@ import {
 import { Member } from '../../members/entities/member.entity';
 
 @ObjectType()
-@Entity("teams")
-export class Team extends BaseEntity {
+@Entity('teams')
+export class Team {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;

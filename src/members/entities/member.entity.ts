@@ -1,7 +1,7 @@
 import {
-  BaseEntity,
   Column,
-  Entity, JoinColumn,
+  Entity,
+  JoinColumn,
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
@@ -19,8 +19,8 @@ export enum UserRole {
 registerEnumType(UserRole, { name: 'UserRole' });
 
 @ObjectType()
-@Entity("members")
-export class Member extends BaseEntity {
+@Entity('members')
+export class Member {
   @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
