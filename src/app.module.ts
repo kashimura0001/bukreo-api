@@ -12,6 +12,11 @@ import { MembersModule } from './members/members.module';
     GraphQLModule.forRoot({
       playground: true,
       autoSchemaFile: 'schema.graphql',
+      context: ({ req }) => {
+        return {
+          request: req,
+        };
+      },
     }),
     TeamsModule,
     UsersModule,
