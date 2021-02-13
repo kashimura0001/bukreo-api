@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
+import { ConfigModule } from '@nestjs/config';
 import { TeamsModule } from './teams/teams.module';
 import { UsersModule } from './users/users.module';
 import { InvitesModule } from './invites/invites.module';
@@ -17,6 +18,10 @@ import { MembersModule } from './members/members.module';
           request: req,
         };
       },
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     TeamsModule,
     UsersModule,
