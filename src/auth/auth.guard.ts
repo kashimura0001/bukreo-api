@@ -6,13 +6,15 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { GqlExecutionContext } from '@nestjs/graphql';
+import { FirebaseClient } from '../utils/firebase-client';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context);
     const request = ctx.getContext().request;
-    const idToken = this.getIdToken(request);
+    const idToken = await this.getIdToken(request);
 
     const decodedToken = await admin
       .auth()
@@ -30,19 +32,19 @@ export class AuthGuard implements CanActivate {
     return true;
   }
 
-  private getIdToken(request) {
+  private async getIdToken(request) {
+    const devUserUid = new ConfigService().get('FIREBASE_DEV_USER_UID');
+    if (devUserUid && process.env.NODE_ENV === 'development') {
+      return await FirebaseClient.fetchIdTokenOfDevUser();
+    }
+
     const authorization = request.get('Authorization');
     if (!authorization) {
       throw new UnauthorizedException();
     }
 
     const [bearer, idToken] = authorization.split(' ');
-
-    if (!bearer || bearer.toLowerCase() !== 'bearer') {
-      throw new UnauthorizedException();
-    }
-
-    if (!idToken) {
+    if (!bearer || bearer.toLowerCase() !== 'bearer' || !idToken) {
       throw new UnauthorizedException();
     }
 
