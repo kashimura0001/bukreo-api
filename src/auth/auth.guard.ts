@@ -8,9 +8,15 @@ import {
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { FirebaseClient } from '../utils/firebase-client';
 import { ConfigService } from '@nestjs/config';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+  constructor(
+    private configService: ConfigService,
+    private usersService: UsersService,
+  ) {}
+
   async canActivate(context: ExecutionContext) {
     const ctx = GqlExecutionContext.create(context);
     const request = ctx.getContext().request;
@@ -24,16 +30,18 @@ export class AuthGuard implements CanActivate {
         throw new UnauthorizedException();
       });
 
-    request.user = {
-      isLogin: true,
-      uid: decodedToken.uid,
-    };
+    const user = await this.usersService.findByFirebaseUid(decodedToken.uid);
 
+    if (!user) {
+      throw new UnauthorizedException();
+    }
+
+    request.user = user;
     return true;
   }
 
   private async getIdToken(request) {
-    const devUserUid = new ConfigService().get('FIREBASE_DEV_USER_UID');
+    const devUserUid = this.configService.get('FIREBASE_DEV_USER_UID');
     if (devUserUid && process.env.NODE_ENV === 'development') {
       return await FirebaseClient.fetchIdTokenOfDevUser();
     }
