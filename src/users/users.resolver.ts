@@ -5,7 +5,6 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
-import { CurrentUser } from '../auth/auth.decorator';
 
 @Resolver(() => User)
 @UseGuards(AuthGuard)
@@ -13,7 +12,7 @@ export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @Query(() => User, { nullable: true })
-  async user(@Args('id') id: string, @CurrentUser() currentUser: User) {
+  async user(@Args('id') id: string) {
     return await this.usersService.findOne(id);
   }
 
