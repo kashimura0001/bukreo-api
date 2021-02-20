@@ -4,7 +4,7 @@ import { IsEmail, MaxLength } from 'class-validator';
 @InputType()
 export class CreateUserInput {
   @Field()
-  firebaseUid: string;
+  firebaseIdToken: string;
 
   @Field()
   @MaxLength(100)
