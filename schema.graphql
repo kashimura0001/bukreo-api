@@ -75,7 +75,7 @@ input UpdateTeamInput {
 }
 
 input CreateUserInput {
-  firebaseUid: String!
+  firebaseIdToken: String!
   name: String!
   email: String!
   avatarUrl: String
