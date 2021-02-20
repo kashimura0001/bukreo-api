@@ -5,6 +5,7 @@ import {
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { FirebaseClient } from '../utils/firebase-client';
 import { ConfigService } from '@nestjs/config';
@@ -13,11 +14,19 @@ import { UsersService } from '../users/users.service';
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
+    private reflector: Reflector,
     private configService: ConfigService,
     private usersService: UsersService,
   ) {}
 
   async canActivate(context: ExecutionContext) {
+    const enableAuth = this.reflector.get<boolean>(
+      'disableAuth',
+      context.getHandler(),
+    );
+
+    if (enableAuth) return true;
+
     const ctx = GqlExecutionContext.create(context);
     const request = ctx.getContext().request;
     const idToken = await this.getIdToken(request);
