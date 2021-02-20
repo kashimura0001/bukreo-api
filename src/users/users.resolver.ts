@@ -7,11 +7,11 @@ import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
 
 @Resolver(() => User)
-@UseGuards(AuthGuard)
 export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @Query(() => User, { nullable: true })
+  @UseGuards(AuthGuard)
   async user(@Args('id') id: string) {
     return await this.usersService.findOne(id);
   }
@@ -22,12 +22,14 @@ export class UsersResolver {
   }
 
   @Mutation(() => User)
+  @UseGuards(AuthGuard)
   async updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
     // TODO: ヘッダーのfirebase uidからcurrentUserを取得する処理いれる
     return await this.usersService.update('', updateUserInput);
   }
 
   @Mutation(() => User, { nullable: true })
+  @UseGuards(AuthGuard)
   async removeUser(@Args('id') id: string) {
     return await this.usersService.remove(id);
   }
