@@ -22,6 +22,7 @@ export class UsersService {
   }
 
   async create(payload: CreateUserInput) {
+    // TODO: アバターを登録する処理を追加する
     const decodedToken = await admin
       .auth()
       .verifyIdToken(payload.firebaseIdToken)
@@ -38,6 +39,7 @@ export class UsersService {
   }
 
   async update(id: string, payload: UpdateUserInput) {
+    // TODO: アバターを更新する処理を追加する
     return this.userRepository.update(id, { ...payload });
   }
 
