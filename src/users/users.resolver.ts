@@ -5,6 +5,7 @@ import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../auth/auth.guard';
+import { CurrentUser } from '../auth/auth.decorator';
 
 @Resolver(() => User)
 export class UsersResolver {
@@ -23,9 +24,11 @@ export class UsersResolver {
 
   @Mutation(() => User)
   @UseGuards(AuthGuard)
-  async updateUser(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
-    // TODO: ヘッダーのfirebase uidからcurrentUserを取得する処理いれる
-    return await this.usersService.update('', updateUserInput);
+  async updateUser(
+    @Args('updateUserInput') updateUserInput: UpdateUserInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    return await this.usersService.update(currentUser.id, updateUserInput);
   }
 
   @Mutation(() => User, { nullable: true })
