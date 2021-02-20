@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
+import admin from 'firebase-admin';
 
 @Injectable()
 export class UsersService {
@@ -21,7 +22,19 @@ export class UsersService {
   }
 
   async create(payload: CreateUserInput) {
-    return this.userRepository.save({ ...payload });
+    const decodedToken = await admin
+      .auth()
+      .verifyIdToken(payload.firebaseIdToken)
+      .catch((e) => {
+        console.log(e);
+        throw new UnauthorizedException();
+      });
+
+    return this.userRepository.save({
+      firebaseUid: decodedToken.uid,
+      name: payload.name,
+      email: payload.email,
+    });
   }
 
   async update(id: string, payload: UpdateUserInput) {
