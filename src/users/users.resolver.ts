@@ -3,8 +3,8 @@ import { UsersService } from './users.service';
 import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
-import { CurrentUser } from '../auth/auth.decorator';
-import { DisableAuth } from '../auth/disable-auth.decorator';
+import { CurrentUser } from '../common/decorators/auth.decorator';
+import { DisableAuth } from '../common/decorators/disable-auth.decorator';
 
 @Resolver(() => User)
 export class UsersResolver {
