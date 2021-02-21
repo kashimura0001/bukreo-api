@@ -15,11 +15,7 @@ import { AuthGuard } from './common/guards/auth.guard';
     GraphQLModule.forRoot({
       playground: true,
       autoSchemaFile: 'schema.graphql',
-      context: ({ req }) => {
-        return {
-          request: req,
-        };
-      },
+      context: ({ req }) => ({ req }),
     }),
     ConfigModule.forRoot({
       isGlobal: true,

@@ -27,9 +27,8 @@ export class AuthGuard implements CanActivate {
 
     if (enableAuth) return true;
 
-    const ctx = GqlExecutionContext.create(context);
-    const request = ctx.getContext().request;
-    const idToken = await this.getIdToken(request);
+    const req = GqlExecutionContext.create(context).getContext().req;
+    const idToken = await this.getIdToken(req);
 
     const decodedToken = await admin
       .auth()
@@ -45,7 +44,7 @@ export class AuthGuard implements CanActivate {
       throw new UnauthorizedException();
     }
 
-    request.user = user;
+    req.user = user;
     return true;
   }
 
