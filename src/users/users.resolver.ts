@@ -30,7 +30,7 @@ export class UsersResolver {
   }
 
   @Mutation(() => User, { nullable: true })
-  async removeUser(@Args('id') id: string) {
-    return await this.usersService.remove(id);
+  async removeUser(@CurrentUser() currentUser: User) {
+    return await this.usersService.remove(currentUser.id);
   }
 }
