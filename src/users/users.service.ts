@@ -18,7 +18,7 @@ export class UsersService {
   }
 
   async findByFirebaseUid(firebaseUid: string) {
-    return this.userRepository.find({ firebaseUid });
+    return this.userRepository.findOne({ firebaseUid });
   }
 
   async create(payload: CreateUserInput) {
