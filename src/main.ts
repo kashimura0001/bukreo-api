@@ -10,7 +10,7 @@ async function bootstrap() {
 
   admin.initializeApp({
     credential: admin.credential.applicationDefault(),
-    databaseURL: 'https://bukure-e0f02.firebaseio.com',
+    databaseURL: 'https://bukreo-bf72d.firebaseio.com',
   });
 }
 bootstrap();
