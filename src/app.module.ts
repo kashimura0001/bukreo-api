@@ -5,7 +5,7 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
 import { TeamsModule } from './teams/teams.module';
 import { UsersModule } from './users/users.module';
-import { InvitesModule } from './invites/invites.module';
+import { InvitationsModule } from './invitations/invitations.module';
 import { MembersModule } from './members/members.module';
 import { AuthGuard } from './common/guards/auth.guard';
 
@@ -23,7 +23,7 @@ import { AuthGuard } from './common/guards/auth.guard';
     }),
     TeamsModule,
     UsersModule,
-    InvitesModule,
+    InvitationsModule,
     MembersModule,
   ],
   providers: [

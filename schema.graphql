@@ -2,23 +2,17 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type User {
+type Invitation {
   id: ID!
-  members: [Member]!
-  name: String!
-  email: String!
-  avatarUrl: String
-}
-
-type Invite {
-  id: ID!
+  team: Team!
+  user: User!
   code: String!
   email: String!
-  status: InviteStatus!
-  inviteAt: DateTime!
+  status: InvitationStatus!
+  invitedAt: DateTime!
 }
 
-enum InviteStatus {
+enum InvitationStatus {
   Sent
   Rejected
   Accepted
@@ -29,12 +23,20 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type User {
+  id: ID!
+  members: [Member]!
+  invitations: [Invitation]!
+  name: String!
+  email: String!
+  avatarUrl: String
+}
+
 type Member {
   id: ID!
   team: Team!
-  user: User
+  user: User!
   role: UserRole
-  invite: Invite
 }
 
 enum UserRole {
@@ -45,6 +47,7 @@ enum UserRole {
 type Team {
   id: ID!
   members: [Member!]!
+  invitations: [Invitation]!
   name: String!
 }
 
