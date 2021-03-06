@@ -49,29 +49,26 @@ type Team {
 }
 
 type Query {
-  teams: [Team!]!
-  team(id: Int!): Team!
+  team(id: String!): Team!
   user(id: String!): User
 }
 
 type Mutation {
   createTeam(createTeamInput: CreateTeamInput!): Team!
   updateTeam(updateTeamInput: UpdateTeamInput!): Team!
-  removeTeam(id: Int!): Team!
+  removeTeam(id: String!): Team!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
   removeUser: User
 }
 
 input CreateTeamInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  name: String!
 }
 
 input UpdateTeamInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  name: String
+  id: ID!
 }
 
 input CreateUserInput {

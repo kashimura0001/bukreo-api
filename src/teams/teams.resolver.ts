@@ -13,23 +13,18 @@ export class TeamsResolver {
     return this.teamsService.create(createTeamInput);
   }
 
-  @Query(() => [Team], { name: 'teams' })
-  findAll() {
-    return this.teamsService.findAll();
-  }
-
-  @Query(() => Team, { name: 'team' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  @Query(() => Team)
+  team(@Args('id') id: string) {
     return this.teamsService.findOne(id);
   }
 
   @Mutation(() => Team)
   updateTeam(@Args('updateTeamInput') updateTeamInput: UpdateTeamInput) {
-    return this.teamsService.update(updateTeamInput.id, updateTeamInput);
+    return this.teamsService.update(updateTeamInput);
   }
 
   @Mutation(() => Team)
-  removeTeam(@Args('id', { type: () => Int }) id: number) {
+  removeTeam(@Args('id') id: string) {
     return this.teamsService.remove(id);
   }
 }
