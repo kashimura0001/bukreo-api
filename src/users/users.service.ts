@@ -28,7 +28,7 @@ export class UsersService {
       .verifyIdToken(payload.firebaseIdToken)
       .catch((e) => {
         console.log(e);
-        throw new UnauthorizedException();
+        throw new UnauthorizedException('Invalid firebaseIdToken.');
       });
 
     return this.userRepository.save({

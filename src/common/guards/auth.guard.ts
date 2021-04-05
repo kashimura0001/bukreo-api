@@ -20,12 +20,12 @@ export class AuthGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext) {
-    const enableAuth = this.reflector.get<boolean>(
+    const disableAuth = this.reflector.get<boolean>(
       'disableAuth',
       context.getHandler(),
     );
 
-    if (enableAuth) return true;
+    if (disableAuth) return true;
 
     const req = GqlExecutionContext.create(context).getContext().req;
     const idToken = await this.getIdToken(req);
@@ -41,7 +41,7 @@ export class AuthGuard implements CanActivate {
     const user = await this.usersService.findByFirebaseUid(decodedToken.uid);
 
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('The user dose not exist.');
     }
 
     req.user = user;
@@ -56,12 +56,12 @@ export class AuthGuard implements CanActivate {
 
     const authorization = request.get('Authorization');
     if (!authorization) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid Authorization.');
     }
 
     const [bearer, idToken] = authorization.split(' ');
     if (!bearer || bearer.toLowerCase() !== 'bearer' || !idToken) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid id token.');
     }
 
     return idToken;
