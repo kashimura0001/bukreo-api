@@ -11,8 +11,8 @@ export class UsersResolver {
   constructor(private readonly usersService: UsersService) {}
 
   @Query(() => User, { nullable: true })
-  async user(@Args('id') id: string) {
-    return await this.usersService.findOne(id);
+  async currentUser(@CurrentUser() currentUser: User) {
+    return currentUser;
   }
 
   @Mutation(() => User)

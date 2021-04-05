@@ -53,7 +53,7 @@ type Team {
 
 type Query {
   team(id: String!): Team!
-  user(id: String!): User
+  currentUser: User
 }
 
 type Mutation {
