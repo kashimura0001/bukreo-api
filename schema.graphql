@@ -57,11 +57,11 @@ type Query {
 }
 
 type Mutation {
-  createTeam(createTeamInput: CreateTeamInput!): Team!
-  updateTeam(updateTeamInput: UpdateTeamInput!): Team!
+  createTeam(input: CreateTeamInput!): Team!
+  updateTeam(input: UpdateTeamInput!): Team!
   removeTeam(id: String!): Team!
-  createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+  createUser(input: CreateUserInput!): User!
+  updateUser(input: UpdateUserInput!): User!
   removeUser: User
 }
 

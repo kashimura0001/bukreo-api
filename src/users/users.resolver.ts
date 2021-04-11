@@ -17,16 +17,16 @@ export class UsersResolver {
 
   @Mutation(() => User)
   @DisableAuth()
-  async createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return await this.usersService.create(createUserInput);
+  async createUser(@Args('input') input: CreateUserInput) {
+    return await this.usersService.create(input);
   }
 
   @Mutation(() => User)
   async updateUser(
-    @Args('updateUserInput') updateUserInput: UpdateUserInput,
+    @Args('input') input: UpdateUserInput,
     @CurrentUser() currentUser: User,
   ) {
-    return await this.usersService.update(currentUser.id, updateUserInput);
+    return await this.usersService.update(currentUser.id, input);
   }
 
   @Mutation(() => User, { nullable: true })

@@ -9,8 +9,8 @@ export class TeamsResolver {
   constructor(private readonly teamsService: TeamsService) {}
 
   @Mutation(() => Team)
-  createTeam(@Args('createTeamInput') createTeamInput: CreateTeamInput) {
-    return this.teamsService.create(createTeamInput);
+  createTeam(@Args('input') input: CreateTeamInput) {
+    return this.teamsService.create(input);
   }
 
   @Query(() => Team)
@@ -19,8 +19,8 @@ export class TeamsResolver {
   }
 
   @Mutation(() => Team)
-  updateTeam(@Args('updateTeamInput') updateTeamInput: UpdateTeamInput) {
-    return this.teamsService.update(updateTeamInput);
+  updateTeam(@Args('input') input: UpdateTeamInput) {
+    return this.teamsService.update(input);
   }
 
   @Mutation(() => Team)
