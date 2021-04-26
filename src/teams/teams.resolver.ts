@@ -3,14 +3,19 @@ import { TeamsService } from './teams.service';
 import { Team } from './entities/team.entity';
 import { CreateTeamInput } from './dto/create-team.input';
 import { UpdateTeamInput } from './dto/update-team.input';
+import { CurrentUser } from '../common/decorators/auth.decorator';
+import { User } from '../users/entities/user.entity';
 
 @Resolver(() => Team)
 export class TeamsResolver {
   constructor(private readonly teamsService: TeamsService) {}
 
   @Mutation(() => Team)
-  createTeam(@Args('input') input: CreateTeamInput) {
-    return this.teamsService.create(input);
+  createTeam(
+    @Args('input') input: CreateTeamInput,
+    @CurrentUser() currentUser: User,
+  ) {
+    return this.teamsService.create(input, currentUser);
   }
 
   @Query(() => Team)
