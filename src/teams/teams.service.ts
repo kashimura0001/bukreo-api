@@ -28,15 +28,15 @@ export class TeamsService {
     });
   }
 
-  async findOne(id: string) {
-    return this.teamRepository.findOne(id);
-  }
-
   async update(payload: UpdateTeamInput) {
     return this.teamRepository.update(payload.id, { name: payload.name });
   }
 
   async remove(id: string) {
     return await this.teamRepository.delete(id);
+  }
+
+  async findOne(id: string) {
+    return this.teamRepository.findOne(id);
   }
 }
