@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserInput } from '../interfaces/create-user.input';
-import { UpdateUserInput } from '../interfaces/update-user.input';
-import { User } from '../entities/user.entity';
+import { CreateUserInput } from '../interfaces/CreateUser.input';
+import { UpdateUserInput } from '../interfaces/UpdateUser.input';
+import { User } from '../entities/User.entity';
 import { Repository } from 'typeorm';
 import admin from 'firebase-admin';
 

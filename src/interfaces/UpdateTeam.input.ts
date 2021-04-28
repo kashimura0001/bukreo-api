@@ -1,4 +1,4 @@
-import { CreateTeamInput } from './create-team.input';
+import { CreateTeamInput } from './CreateTeam.input';
 import { InputType, Field, PartialType, ID } from '@nestjs/graphql';
 
 @InputType()
