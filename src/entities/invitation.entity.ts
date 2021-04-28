@@ -12,8 +12,8 @@ import {
   ObjectType,
   registerEnumType,
 } from '@nestjs/graphql';
-import { Team } from '../../teams/entities/team.entity';
-import { User } from '../../users/entities/user.entity';
+import { Team } from './team.entity';
+import { User } from './user.entity';
 
 export enum InvitationStatus {
   Sent,

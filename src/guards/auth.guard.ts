@@ -7,9 +7,9 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
-import { FirebaseClient } from '../../utils/firebase-client';
+import { FirebaseClient } from '../utils/firebase-client';
 import { ConfigService } from '@nestjs/config';
-import { UsersService } from '../../users/users.service';
+import { UsersService } from '../services/users.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

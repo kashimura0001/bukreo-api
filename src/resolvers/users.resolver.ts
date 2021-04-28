@@ -6,13 +6,13 @@ import {
   ResolveField,
   Parent,
 } from '@nestjs/graphql';
-import { UsersService } from './users.service';
-import { User } from './entities/user.entity';
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-user.input';
-import { CurrentUser } from '../common/decorators/auth.decorator';
-import { DisableAuth } from '../common/decorators/disable-auth.decorator';
-import { MembersService } from '../members/members.service';
+import { UsersService } from '../services/users.service';
+import { User } from '../entities/user.entity';
+import { CreateUserInput } from '../interfaces/create-user.input';
+import { UpdateUserInput } from '../interfaces/update-user.input';
+import { CurrentUser } from '../decorators/auth.decorator';
+import { DisableAuth } from '../decorators/disable-auth.decorator';
+import { MembersService } from '../services/members.service';
 
 @Resolver(() => User)
 export class UsersResolver {

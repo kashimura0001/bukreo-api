@@ -6,13 +6,13 @@ import {
   ResolveField,
   Parent,
 } from '@nestjs/graphql';
-import { TeamsService } from './teams.service';
-import { Team } from './entities/team.entity';
-import { CreateTeamInput } from './dto/create-team.input';
-import { UpdateTeamInput } from './dto/update-team.input';
-import { CurrentUser } from '../common/decorators/auth.decorator';
-import { User } from '../users/entities/user.entity';
-import { MembersService } from '../members/members.service';
+import { TeamsService } from '../services/teams.service';
+import { Team } from '../entities/team.entity';
+import { CreateTeamInput } from '../interfaces/create-team.input';
+import { UpdateTeamInput } from '../interfaces/update-team.input';
+import { CurrentUser } from '../decorators/auth.decorator';
+import { User } from '../entities/user.entity';
+import { MembersService } from '../services/members.service';
 
 @Resolver(() => Team)
 export class TeamsResolver {

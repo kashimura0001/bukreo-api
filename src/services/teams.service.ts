@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTeamInput } from './dto/create-team.input';
-import { UpdateTeamInput } from './dto/update-team.input';
+import { CreateTeamInput } from '../interfaces/create-team.input';
+import { UpdateTeamInput } from '../interfaces/update-team.input';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Team } from './entities/team.entity';
+import { Team } from '../entities/team.entity';
 import { Connection, Repository } from 'typeorm';
-import { Member, UserRole } from '../members/entities/member.entity';
-import { User } from '../users/entities/user.entity';
+import { Member, UserRole } from '../entities/member.entity';
+import { User } from '../entities/user.entity';
 
 @Injectable()
 export class TeamsService {

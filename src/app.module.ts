@@ -3,11 +3,11 @@ import { APP_GUARD } from '@nestjs/core';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ConfigModule } from '@nestjs/config';
-import { TeamsModule } from './teams/teams.module';
-import { UsersModule } from './users/users.module';
-import { InvitationsModule } from './invitations/invitations.module';
-import { MembersModule } from './members/members.module';
-import { AuthGuard } from './common/guards/auth.guard';
+import { TeamsModule } from './modules/teams.module';
+import { UsersModule } from './modules/users.module';
+import { InvitationsModule } from './modules/invitations.module';
+import { MembersModule } from './modules/members.module';
+import { AuthGuard } from './guards/auth.guard';
 
 @Module({
   imports: [
