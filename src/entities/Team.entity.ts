@@ -10,7 +10,6 @@ export class Team {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field(() => [Member])
   @OneToMany(() => Member, (member) => member.team)
   members: Member[];
 

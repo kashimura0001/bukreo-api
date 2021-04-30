@@ -12,13 +12,13 @@ import { CreateUserInput } from '../interfaces/CreateUser.input';
 import { UpdateUserInput } from '../interfaces/UpdateUser.input';
 import { CurrentUser } from '../decorators/Auth.decorator';
 import { DisableAuth } from '../decorators/DisableAuth.decorator';
-import { TeamsService } from '../services/Teams.service';
+import { MembersService } from '../services/Members.service';
 
 @Resolver(() => User)
 export class UsersResolver {
   constructor(
     private readonly usersService: UsersService,
-    private readonly teamsService: TeamsService,
+    private readonly membersService: MembersService,
   ) {}
 
   @Mutation(() => User)
@@ -46,13 +46,13 @@ export class UsersResolver {
   }
 
   @ResolveField()
-  async invitations(@Parent() user: User) {
-    // TODO あとで招待情報を取得できるようにする
-    return null;
+  async members(@Parent() user: User) {
+    return this.membersService.findAll({ userId: user.id });
   }
 
   @ResolveField()
-  async teams(@Parent() user: User) {
-    return this.teamsService.findAll({ userId: user.id });
+  async invitations(@Parent() user: User) {
+    // TODO あとで招待情報を取得できるようにする
+    return null;
   }
 }
