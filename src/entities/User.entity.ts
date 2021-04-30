@@ -2,6 +2,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Field, HideField, ID, ObjectType } from '@nestjs/graphql';
 import { Member } from './Member.entity';
 import { Invitation } from './Invitation.entity';
+import { Team } from './Team.entity';
 
 @ObjectType()
 @Entity('users')
@@ -10,7 +11,6 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field(() => [Member], { nullable: 'items' })
   @OneToMany(() => Member, (member) => member.user)
   members?: Member[];
 
@@ -33,4 +33,7 @@ export class User {
   @Field({ nullable: true })
   @Column({ type: 'text', nullable: true })
   avatarUrl?: string;
+
+  @Field(() => [Team], { nullable: 'items' })
+  teams?: Team[];
 }
