@@ -25,11 +25,11 @@ scalar DateTime
 
 type User {
   id: ID!
-  members: [Member]!
   invitations: [Invitation]!
   name: String!
   email: String!
   avatarUrl: String
+  teams: [Team]!
 }
 
 type Member {
