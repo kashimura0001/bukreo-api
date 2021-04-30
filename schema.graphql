@@ -46,6 +46,7 @@ enum UserRole {
 
 type Team {
   id: ID!
+  members: [Member!]!
   invitations: [Invitation]!
   name: String!
 }
