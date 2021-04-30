@@ -39,4 +39,12 @@ export class TeamsService {
   async findOne(id: string) {
     return this.teamRepository.findOne(id);
   }
+
+  async findAll({ userId }: { userId: string }) {
+    return this.teamRepository
+      .createQueryBuilder('team')
+      .leftJoinAndSelect('team.members', 'members')
+      .where('members.userId = :userId', { userId })
+      .getMany();
+  }
 }
