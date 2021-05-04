@@ -11,7 +11,6 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field(() => [Member], { nullable: 'itemsAndList' })
   @OneToMany(() => Member, (member) => member.user)
   members?: Member[];
 

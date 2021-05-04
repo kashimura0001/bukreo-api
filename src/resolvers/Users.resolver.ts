@@ -46,11 +46,6 @@ export class UsersResolver {
   }
 
   @ResolveField()
-  async members(@Parent() user: User) {
-    return this.membersService.findAll({ userId: user.id });
-  }
-
-  @ResolveField()
   async invitations(@Parent() user: User) {
     // TODO あとで招待情報を取得できるようにする
     return null;
