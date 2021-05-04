@@ -58,7 +58,7 @@ export class UsersResolver {
 
   @ResolveField()
   async teams(@Parent() user: User) {
-    const members = await this.membersService.findByUserId({ userId: user.id });
+    const members = await this.membersService.findAll({ userId: user.id });
 
     return members.map((member) => {
       return { ...member.team, role: member.role };
