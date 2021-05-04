@@ -54,4 +54,9 @@ export class TeamsResolver {
     // TODO あとで招待情報を取得できるようにする
     return null;
   }
+
+  @ResolveField()
+  async role(@Parent() team: Team) {
+    return team?.role;
+  }
 }

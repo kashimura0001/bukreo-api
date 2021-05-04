@@ -24,4 +24,11 @@ export class MembersService {
       relations: ['user', 'team'],
     });
   }
+
+  async findByUserId({ userId }: { userId: string }) {
+    return this.memberRepository.find({
+      where: { user: userId },
+      relations: ['user', 'team'],
+    });
+  }
 }

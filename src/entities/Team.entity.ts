@@ -1,6 +1,6 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Member } from './Member.entity';
+import { Member, UserRole } from './Member.entity';
 import { Invitation } from './Invitation.entity';
 
 @ObjectType()
@@ -21,4 +21,7 @@ export class Team {
   @Field()
   @Column({ length: 50 })
   name: string;
+
+  @Field({ nullable: true })
+  role?: UserRole;
 }

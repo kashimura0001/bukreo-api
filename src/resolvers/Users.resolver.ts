@@ -55,4 +55,13 @@ export class UsersResolver {
     // TODO あとで招待情報を取得できるようにする
     return null;
   }
+
+  @ResolveField()
+  async teams(@Parent() user: User) {
+    const members = await this.membersService.findByUserId({ userId: user.id });
+
+    return members.map((member) => {
+      return { ...member.team, role: member.role };
+    });
+  }
 }
