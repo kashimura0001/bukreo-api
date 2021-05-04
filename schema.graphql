@@ -25,8 +25,8 @@ scalar DateTime
 
 type User {
   id: ID!
-  members: [Member]!
-  invitations: [Invitation]!
+  members: [Member]
+  invitations: [Invitation]
   name: String!
   email: String!
   avatarUrl: String
@@ -47,7 +47,7 @@ enum UserRole {
 type Team {
   id: ID!
   members: [Member!]!
-  invitations: [Invitation]!
+  invitations: [Invitation]
   name: String!
 }
 

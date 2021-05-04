@@ -10,11 +10,11 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field(() => [Member], { nullable: 'items' })
+  @Field(() => [Member], { nullable: 'itemsAndList' })
   @OneToMany(() => Member, (member) => member.user)
   members?: Member[];
 
-  @Field(() => [Invitation], { nullable: 'items' })
+  @Field(() => [Invitation], { nullable: 'itemsAndList' })
   @OneToMany(() => Invitation, (invitation) => invitation.user)
   invitations?: Invitation[];
 

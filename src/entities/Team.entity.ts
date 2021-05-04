@@ -14,7 +14,7 @@ export class Team {
   @OneToMany(() => Member, (member) => member.team)
   members: Member[];
 
-  @Field(() => [Invitation], { nullable: 'items' })
+  @Field(() => [Invitation], { nullable: 'itemsAndList' })
   @OneToMany(() => Invitation, (invitation) => invitation.team)
   invitations?: Invitation[];
 
