@@ -17,7 +17,6 @@ export class Member {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Field(() => Team)
   @ManyToOne(() => Team, (team) => team.members, {
     nullable: false,
     orphanedRowAction: 'delete',
