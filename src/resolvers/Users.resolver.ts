@@ -12,13 +12,13 @@ import { CreateUserInput } from '../interfaces/CreateUser.input';
 import { UpdateUserInput } from '../interfaces/UpdateUser.input';
 import { CurrentUser } from '../decorators/Auth.decorator';
 import { DisableAuth } from '../decorators/DisableAuth.decorator';
-import { MembersService } from '../services/Members.service';
+import { TeamsService } from '../services/Teams.service';
 
 @Resolver(() => User)
 export class UsersResolver {
   constructor(
     private readonly usersService: UsersService,
-    private readonly membersService: MembersService,
+    private readonly teamsService: TeamsService,
   ) {}
 
   @Mutation(() => User)
@@ -52,11 +52,11 @@ export class UsersResolver {
   }
 
   @ResolveField()
-  async teams(@Parent() user: User) {
-    const members = await this.membersService.findAll({ userId: user.id });
+  async teams(@CurrentUser() currentUser: User, @Parent() parentUser: User) {
+    if (currentUser.id !== parentUser.id) {
+      return null;
+    }
 
-    return members.map((member) => {
-      return { ...member.team, role: member.role };
-    });
+    return this.teamsService.findByUserId({ userId: currentUser.id });
   }
 }

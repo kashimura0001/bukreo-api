@@ -10,18 +10,13 @@ export class MembersService {
     private memberRepository: Repository<Member>,
   ) {}
 
-  async findAll({ teamId, userId }: { teamId?: string; userId?: string }) {
-    let where = {};
-    if (teamId) {
-      where = { ...where, team: teamId };
-    }
-    if (userId) {
-      where = { ...where, user: userId };
-    }
+  async findByTeamId({ teamId }: { teamId: string }) {
+    return this.memberRepository.find({ where: { team: teamId } });
+  }
 
-    return this.memberRepository.find({
-      where: where,
-      relations: ['user', 'team'],
+  async findOne({ userId, teamId }: { userId: string; teamId: string }) {
+    return this.memberRepository.findOne({
+      where: { user: userId, team: teamId },
     });
   }
 }

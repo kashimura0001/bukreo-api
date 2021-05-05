@@ -36,7 +36,20 @@ export class TeamsService {
     return await this.teamRepository.delete(id);
   }
 
-  async findOne(id: string) {
-    return this.teamRepository.findOne(id);
+  async findOne({ userId, teamId }: { userId: string; teamId: string }) {
+    return this.teamRepository
+      .createQueryBuilder('teams')
+      .leftJoinAndSelect('teams.members', 'members')
+      .where('teams.id = :teamId', { teamId })
+      .andWhere('members.userId = :userId', { userId })
+      .getOne();
+  }
+
+  async findByUserId({ userId }: { userId: string }) {
+    return this.teamRepository
+      .createQueryBuilder('teams')
+      .leftJoinAndSelect('teams.members', 'members')
+      .where('members.userId = :userId', { userId })
+      .getMany();
   }
 }

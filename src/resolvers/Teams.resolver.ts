@@ -40,13 +40,16 @@ export class TeamsResolver {
   }
 
   @Query(() => Team)
-  async team(@Args('id') id: string) {
-    return this.teamsService.findOne(id);
+  async team(@CurrentUser() currentUser: User, @Args('id') teamId: string) {
+    return this.teamsService.findOne({
+      userId: currentUser.id,
+      teamId,
+    });
   }
 
   @ResolveField()
   async members(@Parent() team: Team) {
-    return this.membersService.findAll({ teamId: team.id });
+    return this.membersService.findByTeamId({ teamId: team.id });
   }
 
   @ResolveField()
@@ -56,7 +59,13 @@ export class TeamsResolver {
   }
 
   @ResolveField()
-  async role(@Parent() team: Team) {
-    return team?.role;
+  async role(@CurrentUser() currentUser: User, @Parent() team: Team) {
+    // TODO N+1を解消する
+    const member = await this.membersService.findOne({
+      userId: currentUser.id,
+      teamId: team.id,
+    });
+
+    return member?.role;
   }
 }
