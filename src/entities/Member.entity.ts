@@ -4,8 +4,8 @@ import { Team } from './Team.entity';
 import { User } from './User.entity';
 
 export enum UserRole {
-  Admin,
-  Member,
+  Admin = 'admin',
+  Member = 'member',
 }
 
 registerEnumType(UserRole, { name: 'UserRole' });

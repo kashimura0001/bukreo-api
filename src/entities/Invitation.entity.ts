@@ -16,9 +16,9 @@ import { Team } from './Team.entity';
 import { User } from './User.entity';
 
 export enum InvitationStatus {
-  Sent,
-  Rejected,
-  Accepted,
+  Sent = 'sent',
+  Rejected = 'rejected',
+  Accepted = 'accepted',
 }
 
 registerEnumType(InvitationStatus, { name: 'InvitationStatus' });
