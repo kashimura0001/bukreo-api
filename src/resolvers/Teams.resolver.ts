@@ -30,8 +30,11 @@ export class TeamsResolver {
   }
 
   @Mutation(() => Team)
-  async updateTeam(@Args('input') input: UpdateTeamInput) {
-    return this.teamsService.update(input);
+  async updateTeam(
+    @CurrentUser() currentUser: User,
+    @Args('input') input: UpdateTeamInput,
+  ) {
+    return this.teamsService.update(currentUser, input);
   }
 
   @Mutation(() => Team)

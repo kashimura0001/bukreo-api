@@ -6,6 +6,7 @@ import { Team } from '../entities/Team.entity';
 import { Connection, Repository } from 'typeorm';
 import { Member, UserRole } from '../entities/Member.entity';
 import { User } from '../entities/User.entity';
+import { UnauthorizedException } from '@nestjs/common';
 
 @Injectable()
 export class TeamsService {
@@ -28,8 +29,18 @@ export class TeamsService {
     });
   }
 
-  async update(payload: UpdateTeamInput) {
-    return this.teamRepository.update(payload.id, { name: payload.name });
+  async update(currentUser: User, payload: UpdateTeamInput) {
+    const team = await this.findOne({
+      userId: currentUser.id,
+      teamId: payload.id,
+    });
+
+    if (!team) {
+      throw new UnauthorizedException('Not found team.');
+    }
+
+    team.name = payload.name;
+    return await this.teamRepository.save(team);
   }
 
   async remove(id: string) {
