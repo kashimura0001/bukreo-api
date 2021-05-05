@@ -22,6 +22,6 @@ export class Team {
   @Column({ length: 50 })
   name: string;
 
-  @Field({ nullable: true })
+  @Field(() => UserRole, { nullable: true })
   role?: UserRole;
 }
