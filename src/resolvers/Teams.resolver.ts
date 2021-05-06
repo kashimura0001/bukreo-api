@@ -13,6 +13,7 @@ import { UpdateTeamInput } from '../interfaces/UpdateTeam.input';
 import { CurrentUser } from '../decorators/Auth.decorator';
 import { User } from '../entities/User.entity';
 import { MembersService } from '../services/Members.service';
+import { DeleteTeamInput } from '../interfaces/DeleteTeam.input';
 
 @Resolver(() => Team)
 export class TeamsResolver {
@@ -21,6 +22,7 @@ export class TeamsResolver {
     private readonly membersService: MembersService,
   ) {}
 
+  //TODO serviceの引数をdeleteに合わせる ＆ 返り値のnullを許可する
   @Mutation(() => Team)
   async createTeam(
     @Args('input') input: CreateTeamInput,
@@ -37,9 +39,15 @@ export class TeamsResolver {
     return this.teamsService.update(currentUser, input);
   }
 
-  @Mutation(() => Team)
-  async removeTeam(@Args('id') id: string) {
-    return this.teamsService.remove(id);
+  @Mutation(() => Team, { nullable: true })
+  async deleteTeam(
+    @CurrentUser() currentUser: User,
+    @Args('input') input: DeleteTeamInput,
+  ) {
+    return this.teamsService.delete({
+      userId: currentUser.id,
+      teamId: input.id,
+    });
   }
 
   @Query(() => Team)

@@ -29,6 +29,7 @@ export class TeamsService {
     });
   }
 
+  // TODO トランザクションをはる
   async update(currentUser: User, payload: UpdateTeamInput) {
     const team = await this.findOne({
       userId: currentUser.id,
@@ -43,8 +44,17 @@ export class TeamsService {
     return await this.teamRepository.save(team);
   }
 
-  async remove(id: string) {
-    return await this.teamRepository.delete(id);
+  async delete({ userId, teamId }: { userId: string; teamId: string }) {
+    return await this.connection.transaction(async () => {
+      const team = await this.findOne({ userId, teamId });
+
+      if (!team) {
+        throw new UnauthorizedException('Not found team.');
+      }
+
+      await this.teamRepository.delete(team.id);
+      return team;
+    });
   }
 
   async findOne({ userId, teamId }: { userId: string; teamId: string }) {
