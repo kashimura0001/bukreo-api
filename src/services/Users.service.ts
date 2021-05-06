@@ -43,7 +43,7 @@ export class UsersService {
     return this.userRepository.update(id, { ...payload });
   }
 
-  async remove(id: string) {
+  async delete(id: string) {
     await this.userRepository.delete(id);
     return this.findOne(id);
   }
