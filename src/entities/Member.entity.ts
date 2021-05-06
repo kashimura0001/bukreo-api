@@ -19,14 +19,14 @@ export class Member {
 
   @ManyToOne(() => Team, (team) => team.members, {
     nullable: false,
-    orphanedRowAction: 'delete',
+    onDelete: 'CASCADE',
   })
   team: Team;
 
   @Field(() => User)
   @ManyToOne(() => User, (user) => user.members, {
     nullable: false,
-    orphanedRowAction: 'delete',
+    onDelete: 'CASCADE',
   })
   user: User;
 
