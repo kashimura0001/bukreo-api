@@ -13,14 +13,6 @@ export class UsersService {
     private userRepository: Repository<User>,
   ) {}
 
-  async findOne(id: string) {
-    return this.userRepository.findOne(id);
-  }
-
-  async findByFirebaseUid(firebaseUid: string) {
-    return this.userRepository.findOne({ firebaseUid });
-  }
-
   async create(payload: CreateUserInput) {
     // TODO: アバターを登録する処理を追加する
     const decodedToken = await admin
@@ -38,13 +30,21 @@ export class UsersService {
     });
   }
 
-  async update(id: string, payload: UpdateUserInput) {
+  async update(currentUser: User, payload: UpdateUserInput) {
     // TODO: アバターを更新する処理を追加する
-    return this.userRepository.update(id, { ...payload });
+    return this.userRepository.update(currentUser.id, { ...payload });
   }
 
-  async delete(id: string) {
-    await this.userRepository.delete(id);
-    return this.findOne(id);
+  async delete(currentUser: User) {
+    await this.userRepository.delete(currentUser.id);
+    return this.findOne({ userId: currentUser.id });
+  }
+
+  async findOne({ userId }: { userId: string }) {
+    return this.userRepository.findOne(userId);
+  }
+
+  async findByFirebaseUid({ firebaseUid }: { firebaseUid: string }) {
+    return this.userRepository.findOne({ firebaseUid });
   }
 }

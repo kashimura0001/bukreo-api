@@ -7,6 +7,7 @@ import { Connection, Repository } from 'typeorm';
 import { Member, UserRole } from '../entities/Member.entity';
 import { User } from '../entities/User.entity';
 import { UnauthorizedException } from '@nestjs/common';
+import { DeleteTeamInput } from '../interfaces/DeleteTeam.input';
 
 @Injectable()
 export class TeamsService {
@@ -16,7 +17,7 @@ export class TeamsService {
     private teamRepository: Repository<Team>,
   ) {}
 
-  async create(payload: CreateTeamInput, currentUser: User) {
+  async create(currentUser: User, payload: CreateTeamInput) {
     return await this.connection.transaction(async (manager) => {
       const team = await manager.save(Team, { name: payload.name });
       await manager.save(Member, {
@@ -44,9 +45,12 @@ export class TeamsService {
     return await this.teamRepository.save(team);
   }
 
-  async delete({ userId, teamId }: { userId: string; teamId: string }) {
+  async delete(currentUser: User, payload: DeleteTeamInput) {
     return await this.connection.transaction(async () => {
-      const team = await this.findOne({ userId, teamId });
+      const team = await this.findOne({
+        userId: currentUser.id,
+        teamId: payload.id,
+      });
 
       if (!team) {
         throw new UnauthorizedException('Not found team.');

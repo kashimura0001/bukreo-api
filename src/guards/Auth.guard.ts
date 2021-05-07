@@ -38,7 +38,9 @@ export class AuthGuard implements CanActivate {
         throw new UnauthorizedException();
       });
 
-    const user = await this.usersService.findByFirebaseUid(decodedToken.uid);
+    const user = await this.usersService.findByFirebaseUid({
+      firebaseUid: decodedToken.uid,
+    });
 
     if (!user) {
       throw new UnauthorizedException('The user dose not exist.');

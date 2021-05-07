@@ -22,13 +22,12 @@ export class TeamsResolver {
     private readonly membersService: MembersService,
   ) {}
 
-  //TODO serviceの引数をdeleteに合わせる ＆ 返り値のnullを許可する
   @Mutation(() => Team)
   async createTeam(
-    @Args('input') input: CreateTeamInput,
     @CurrentUser() currentUser: User,
+    @Args('input') input: CreateTeamInput,
   ) {
-    return this.teamsService.create(input, currentUser);
+    return this.teamsService.create(currentUser, input);
   }
 
   @Mutation(() => Team)
@@ -39,15 +38,12 @@ export class TeamsResolver {
     return this.teamsService.update(currentUser, input);
   }
 
-  @Mutation(() => Team, { nullable: true })
+  @Mutation(() => Team)
   async deleteTeam(
     @CurrentUser() currentUser: User,
     @Args('input') input: DeleteTeamInput,
   ) {
-    return this.teamsService.delete({
-      userId: currentUser.id,
-      teamId: input.id,
-    });
+    return this.teamsService.delete(currentUser, input);
   }
 
   @Query(() => Team)

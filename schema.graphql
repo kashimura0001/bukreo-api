@@ -59,10 +59,10 @@ type Query {
 type Mutation {
   createTeam(input: CreateTeamInput!): Team!
   updateTeam(input: UpdateTeamInput!): Team!
-  deleteTeam(input: DeleteTeamInput!): Team
+  deleteTeam(input: DeleteTeamInput!): Team!
   createUser(input: CreateUserInput!): User!
   updateUser(input: UpdateUserInput!): User!
-  deleteUser: User
+  deleteUser: User!
 }
 
 input CreateTeamInput {

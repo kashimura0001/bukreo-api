@@ -29,15 +29,15 @@ export class UsersResolver {
 
   @Mutation(() => User)
   async updateUser(
-    @Args('input') input: UpdateUserInput,
     @CurrentUser() currentUser: User,
+    @Args('input') input: UpdateUserInput,
   ) {
-    return await this.usersService.update(currentUser.id, input);
+    return await this.usersService.update(currentUser, input);
   }
 
-  @Mutation(() => User, { nullable: true })
+  @Mutation(() => User)
   async deleteUser(@CurrentUser() currentUser: User) {
-    return await this.usersService.delete(currentUser.id);
+    return await this.usersService.delete(currentUser);
   }
 
   @Query(() => User)
