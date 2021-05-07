@@ -35,11 +35,6 @@ export class UsersResolver {
     return await this.usersService.update(currentUser, input);
   }
 
-  @Mutation(() => User)
-  async deleteUser(@CurrentUser() currentUser: User) {
-    return await this.usersService.delete(currentUser);
-  }
-
   @Query(() => User)
   async currentUser(@CurrentUser() currentUser: User) {
     return currentUser;

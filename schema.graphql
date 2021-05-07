@@ -62,7 +62,6 @@ type Mutation {
   deleteTeam(input: DeleteTeamInput!): Team!
   createUser(input: CreateUserInput!): User!
   updateUser(input: UpdateUserInput!): User!
-  deleteUser: User!
 }
 
 input CreateTeamInput {

@@ -35,11 +35,6 @@ export class UsersService {
     return this.userRepository.update(currentUser.id, { ...payload });
   }
 
-  async delete(currentUser: User) {
-    await this.userRepository.delete(currentUser.id);
-    return this.findOne({ userId: currentUser.id });
-  }
-
   async findOne({ userId }: { userId: string }) {
     return this.userRepository.findOne(userId);
   }
