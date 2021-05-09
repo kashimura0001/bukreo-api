@@ -14,12 +14,14 @@ import { CurrentUser } from '../decorators/Auth.decorator';
 import { User } from '../entities/User.entity';
 import { MembersService } from '../services/Members.service';
 import { DeleteTeamInput } from '../interfaces/DeleteTeam.input';
+import { MemberRoleLoader } from '../dataloaders/MemberRole.loader';
 
 @Resolver(() => Team)
 export class TeamsResolver {
   constructor(
     private readonly teamsService: TeamsService,
     private readonly membersService: MembersService,
+    private readonly memberRoleLoader: MemberRoleLoader,
   ) {}
 
   @Mutation(() => Team)
@@ -67,12 +69,6 @@ export class TeamsResolver {
 
   @ResolveField()
   async role(@CurrentUser() currentUser: User, @Parent() team: Team) {
-    // TODO N+1を解消する
-    const member = await this.membersService.findOne({
-      userId: currentUser.id,
-      teamId: team.id,
-    });
-
-    return member?.role;
+    return this.memberRoleLoader.batch.load(team.id);
   }
 }
